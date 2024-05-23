@@ -8,9 +8,10 @@ def handler(event, context):
 
   bucket = os.environ.get('BucketName')
 
+  responseData = {}
+
   try:
     with open ("static-error-pages/index.html") as f:
-      responseData = {}
       responseData['Data'] = s3.upload_fileobj(f, bucket, "cloudfront")
       cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData)
   except:
