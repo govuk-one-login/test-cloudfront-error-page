@@ -53,4 +53,3 @@ jobs:
         with:
           artifact-bucket-name: ${{ secrets.ERROR_PAGE_ARTIFACT_BUCKET_NAME }}
           signing-profile-name: ${{ secrets.SIGNING_PROFILE_NAME }}
-          working-directory: ./cloudformation
