@@ -9,7 +9,6 @@ on:
 defaults:
   run:
     shell: bash
-    working-directory: cloudformation
 
 jobs:
   deploy:
@@ -36,10 +35,10 @@ jobs:
           aws-region: eu-west-2
 
       - name: SAM validate
-        run: sam validate
+        run: cd cloudformation && sam validate
 
       - name: SAM build and test
-        run: sam build
+        run: cd cloudformation &&  sam build
 
       - name: Deploy SAM app
         uses: govuk-one-login/devplatform-upload-action@v3.8.1
