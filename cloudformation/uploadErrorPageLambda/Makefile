@@ -1,4 +1,4 @@
-build-ErrorPageLayer:
+build-StaticSiteUploadLayer:
 
 	# Copy in to the layer the single index.html containing all needed assets inlined in the file:
 
