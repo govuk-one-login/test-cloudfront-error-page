@@ -4,6 +4,7 @@ build-StaticSiteUploadLayer:
 
 	mkdir -p $(ARTIFACTS_DIR)/static-error-pages
 	pwd
+	ls -lash
 	cp ../index.html "$(ARTIFACTS_DIR)/static-error-pages"
 
 	# Copy in to the layer an assets directory containing the assets:
