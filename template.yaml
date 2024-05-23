@@ -76,7 +76,7 @@ Resources:
       Layers:
         - !Ref StaticSiteUploadLayer
       Timeout: 5
-      Handler: uploadStaticPage.handler
+      Handler: uploadStaticSite.handler
       Policies:
         - S3WritePolicy:
             BucketName: !Ref CFErrorPageBucket
