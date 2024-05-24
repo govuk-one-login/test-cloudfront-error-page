@@ -6,7 +6,7 @@ import cfnresponse
 def handler(event, context):
 
   responseData = {}
-  print(event.ResponseURL)
+  print(event['ResponseURL'])
 
   try:
     s3=boto3.client('s3')
