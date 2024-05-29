@@ -14,9 +14,6 @@ try:
     s3 = boto3.client('s3')
     logger.info("Created S3 client")
 
-    bucket = os.environ['BucketName']
-    logger.info("Got BucketName")
-
     with open ("static-error-pages/index.html") as f:
        pass
     logger.info("Able to open static-error-pages/index.html")
@@ -28,6 +25,9 @@ except Exception as e:
 @helper.update
 def updateBucket(event, context):
   logger.info("Got Create or Update")
+  properties = event["ResourceProperties"]
+  bucket = properties["BucketName"]
+
   # Optionally return an ID that will be used for the resource PhysicalResourceId, 
   # if None is returned an ID will be generated.
   #
@@ -36,8 +36,8 @@ def updateBucket(event, context):
 
   
   with open ("static-error-pages/index.html") as f:
-
     helper.Data.update(s3.upload_fileobj(f, bucket, "cloudfront"))
+    
 
     # # To return an error to cloudformation you raise an exception:
     # if not helper.Data.get("test"):
