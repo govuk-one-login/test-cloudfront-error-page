@@ -81,12 +81,5 @@ Resources:
       Policies:
         - S3WritePolicy:
             BucketName: !Ref CFErrorPageBucket
-
-  StaticSiteUploadLayer:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
-      ContentUri: uploadErrorPageLambda
-      CompatibleRuntimes:
-        - python3.12
-    Metadata:
-      BuildMethod: makefile
+      Metadata:
+        BuildMethod: makefile
