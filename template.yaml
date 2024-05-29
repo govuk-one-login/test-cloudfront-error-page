@@ -59,6 +59,7 @@ Resources:
   StaticSiteInvoke:
     Type: AWS::CloudFormation::CustomResource
     Properties:
+      BucketName: !Ref CFErrorPageBucket
       ServiceToken: !GetAtt StaticSiteUploadLambdaFunction.Arn
       FunctionName: !Ref StaticSiteUploadLambdaFunction
 
@@ -80,9 +81,6 @@ Resources:
       Policies:
         - S3WritePolicy:
             BucketName: !Ref CFErrorPageBucket
-      Environment:
-        Variables:
-          BucketName: !Ref CFErrorPageBucket
 
   StaticSiteUploadLayer:
     Type: AWS::Serverless::LayerVersion
