@@ -66,6 +66,8 @@ Resources:
   StaticSiteUploadLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Architectures: 
+       - x86_64
       #checkov:skip=CKV_AWS_117:vpc not required for this simple S3 upload
       #checkov:skip=CKV_AWS_116:dlq not required for this simple S3 upload function
       #checkov:skip=CKV_AWS_173:encryption not required
