@@ -43,13 +43,9 @@ def updateBucket(event, context):
     # if not helper.Data.get("test"):
     #     raise ValueError("this error will show in the cloudformation events log and console.")
 
-
-
 @helper.delete
 def no_op(_, __):
     pass
-
-
 
 def handler(event, context):
     helper(event, context)
