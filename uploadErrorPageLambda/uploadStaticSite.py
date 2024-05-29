@@ -12,13 +12,10 @@ import os
 import boto3
 
 try:
-  responseData = {}
-
-
   s3=boto3.client('s3')
   bucket = os.environ.get('BucketName')
   with open ("static-error-pages/index.html") as f:
-    responseData['Data'] = s3.upload_fileobj(f, bucket, "cloudfront")
+    s3.upload_fileobj(f, bucket, "cloudfront")
 except Exception as e:
     helper.init_failure(e)
 
