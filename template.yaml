@@ -76,19 +76,8 @@ Resources:
       AutoPublishAlias: LatestVersion
       FunctionName: upload-cf-error-page
       Runtime: python3.12
-      Layers:
-        - !Ref StaticSiteUploadLayer
       Timeout: 5
       Handler: uploadStaticSite.handler
       Policies:
         - S3WritePolicy:
             BucketName: !Ref CFErrorPageBucket
-
-  StaticSiteUploadLayer:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
-      ContentUri: uploadErrorPageLambda
-      CompatibleRuntimes:
-        - python3.12
-    Metadata:
-      BuildMethod: makefile

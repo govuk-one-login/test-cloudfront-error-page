@@ -42,6 +42,16 @@ jobs:
       - name: copy index.html
         run: cp index.html uploadErrorPageLambda
 
+      - name: Install python dependencies
+        run: |
+          mkdir -p uploadErrorPageLambda/python
+          python -m pip install -r uploadErrorPageLambda/requirements.txt \
+          --platform manylinux2014_x86_64 \
+          --target="uploadErrorPageLambda/python" \
+          --implementation cp \
+          --python-version 3.12 \
+          --only-binary=:all:
+
       - name: SAM validate
         run: sam validate
 
