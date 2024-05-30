@@ -45,7 +45,7 @@ jobs:
       - name: Install python dependencies
         run: |
           mkdir -p uploadErrorPageLambda/python
-        	python -m pip install -r uploadErrorPageLambda/requirements.txt \
+          python -m pip install -r uploadErrorPageLambda/requirements.txt \
           --platform manylinux2014_x86_64 \
           --target="uploadErrorPageLambda/python" \
           --implementation cp \
