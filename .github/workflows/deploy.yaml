@@ -39,9 +39,6 @@ jobs:
           role-to-assume: ${{ secrets.ERROR_PAGE_GH_ACTIONS_ROLE_ARN }}
           aws-region: eu-west-2
 
-      - name: copy index.html
-        run: cp index.html uploadErrorPageLambda
-
       - name: Install python dependencies
         run: |
           mkdir -p uploadErrorPageLambda/python
@@ -51,6 +48,9 @@ jobs:
           --implementation cp \
           --python-version 3.12 \
           --only-binary=:all:
+
+      - name: copy index.html
+        run: cp index.html uploadErrorPageLambda
 
       - name: SAM validate
         run: sam validate
