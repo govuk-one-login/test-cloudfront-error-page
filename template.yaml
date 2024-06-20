@@ -81,5 +81,5 @@ Resources:
       Policies:
         - S3WritePolicy:
             BucketName: !Ref CFErrorPageBucket
-      Metadata:
-        BuildMethod: makefile
+    Metadata:
+      BuildMethod: makefile
