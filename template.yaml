@@ -40,14 +40,17 @@ Globals:
 Resources:
   CFErrorPageBucket:
     Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
     Properties:
       VersioningConfiguration:
         Status: "Enabled"
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: "index.html"
       BucketEncryption:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
@@ -55,6 +58,23 @@ Resources:
       Tags:
         - Key: Source
           Value: "govuk-one-login/static-error-pages/cloudformation/template"
+
+  CFErrorPageBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref CFErrorPageBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: PublicReadForGetBucketObjects
+            Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Join 
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref S3Bucket
+                - /*  
 
   StaticSiteInvoke:
     Type: AWS::CloudFormation::CustomResource
