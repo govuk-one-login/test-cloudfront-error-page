@@ -4,5 +4,5 @@ build-StaticSiteUploadFunction:
 
 	cp requirements.txt "$(ARTIFACTS_DIR)"
 	cp *.py "$(ARTIFACTS_DIR)"
-	python -m pip install -r requirements.txt --platform manylinux2014_x86_64 --target "$(ARTIFACTS_DIR)" --python-version 3.12
+	python -m pip install -r requirements.txt --target "$(ARTIFACTS_DIR)"
 	rm -rf $(ARTIFACTS_DIR)/bin
