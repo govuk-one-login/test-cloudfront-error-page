@@ -42,7 +42,7 @@ def updateBucket(event, context):
     # # To return an error to cloudformation you raise an exception:
     # if not helper.Data.get("test"):
     #     raise ValueError("this error will show in the cloudformation events log and console.")
-    return None
+  return None
 
 @helper.delete
 def no_op(_, __):
