@@ -39,6 +39,16 @@ jobs:
           role-to-assume: ${{ secrets.ERROR_PAGE_GH_ACTIONS_ROLE_ARN }}
           aws-region: eu-west-2
 
+      - name: Install python dependencies
+        run: |
+          mkdir -p uploadErrorPageLambda/python
+          python -m pip install -r uploadErrorPageLambda/requirements.txt \
+          --platform manylinux2014_x86_64 \
+          --target="uploadErrorPageLambda/python" \
+          --implementation cp \
+          --python-version 3.12 \
+          --only-binary=:all:
+
       - name: copy index.html
         run: cp index.html uploadErrorPageLambda
 
