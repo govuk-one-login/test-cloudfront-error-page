@@ -1,4 +1,4 @@
-build-StaticSiteUploadLayer:
+build-StaticSiteUploadFunction:
 	mkdir -p $(ARTIFACTS_DIR)/static-error-pages
 	cp index.html "$(ARTIFACTS_DIR)/static-error-pages"
 
