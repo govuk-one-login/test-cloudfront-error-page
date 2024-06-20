@@ -35,9 +35,7 @@ def updateBucket(event, context):
 
   
   with open("index.html", "rb") as f:
-    helper.Data.update(s3.upload_fileobj(f, bucket, "cloudfront"))
-    
-
+    s3.upload_fileobj(f, bucket, "cloudfront")
     # # To return an error to cloudformation you raise an exception:
     # if not helper.Data.get("test"):
     #     raise ValueError("this error will show in the cloudformation events log and console.")
