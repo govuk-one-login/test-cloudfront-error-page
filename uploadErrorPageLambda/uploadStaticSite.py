@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 from crhelper import CfnResource
-import os
+
 import logging
 import boto3
 
@@ -11,15 +11,14 @@ logger = logging.getLogger(__name__)
 helper = CfnResource(json_logging=False, log_level='DEBUG', boto_level='CRITICAL', sleep_on_delete=120, ssl_verify=None)
 
 try:
-    s3 = boto3.client('s3')
-    logger.info("Created S3 client")
+  s3 = boto3.client('s3')
+  logger.info("Created S3 client")
 
-    with open ("static-error-pages/index.html") as f:
-       pass
-    logger.info("Able to open static-error-pages/index.html")
+  with open ("index.html") as f:
+    logger.info("Able to open index.html")
 
 except Exception as e:
-    helper.init_failure(e)
+  helper.init_failure(e)
 
 @helper.create
 @helper.update
@@ -35,7 +34,7 @@ def updateBucket(event, context):
   # If poll is enabled data is placed into poll event as event['CrHelperData']
 
   
-  with open ("static-error-pages/index.html") as f:
+  with open ("index.html") as f:
     helper.Data.update(s3.upload_fileobj(f, bucket, "cloudfront"))
     
 
@@ -46,7 +45,7 @@ def updateBucket(event, context):
 
 @helper.delete
 def no_op(_, __):
-    pass
+  pass
 
 def handler(event, context):
-    helper(event, context)
+  helper(event, context)
