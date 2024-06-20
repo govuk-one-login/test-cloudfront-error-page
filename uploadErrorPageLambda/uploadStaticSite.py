@@ -14,7 +14,7 @@ try:
   s3 = boto3.client('s3')
   logger.info("Created S3 client")
 
-  with open ("index.html") as f:
+  with open("index.html") as f:
     logger.info("Able to open index.html")
 
 except Exception as e:
@@ -34,7 +34,7 @@ def updateBucket(event, context):
   # If poll is enabled data is placed into poll event as event['CrHelperData']
 
   
-  with open ("index.html") as f:
+  with open("index.html", "rb") as f:
     helper.Data.update(s3.upload_fileobj(f, bucket, "cloudfront"))
     
 
