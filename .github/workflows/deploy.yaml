@@ -44,7 +44,7 @@ jobs:
           mkdir -p uploadErrorPageLambda/python
           python -m pip install -r uploadErrorPageLambda/requirements.txt \
           --platform manylinux2014_x86_64 \
-          --target="uploadErrorPageLambda/python" \
+          --target="uploadErrorPageLambda" \
           --implementation cp \
           --python-version 3.12 \
           --only-binary=:all:
