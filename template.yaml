@@ -104,7 +104,7 @@ Resources:
 Outputs:
   WebsiteURL:
     Value: !GetAtt 
-      - S3Bucket
+      - CFErrorPageBucket
       - WebsiteURL
     Description: URL for website hosted on S3
   S3BucketSecureURL:
@@ -112,6 +112,6 @@ Outputs:
       - ''
       - - 'https://'
         - !GetAtt 
-          - S3Bucket
+          - CFErrorPageBucket
           - DomainName
     Description: Name of S3 bucket to hold website content
