@@ -50,7 +50,7 @@ Resources:
         IgnorePublicAcls: false
         RestrictPublicBuckets: false
       WebsiteConfiguration:
-        IndexDocument: "index.html"
+        IndexDocument: "cloudfront/index.html"
       BucketEncryption:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
