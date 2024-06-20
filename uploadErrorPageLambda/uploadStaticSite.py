@@ -34,8 +34,8 @@ def updateBucket(event, context):
   # If poll is enabled data is placed into poll event as event['CrHelperData']
 
   
-  with open("index.html", "rb") as f:
-    s3.upload_fileobj(f, bucket, "cloudfront")
+
+  s3.upload_file('index.html', bucket, 'index.html', ExtraArgs={'ContentType': 'text/html'})
     # # To return an error to cloudformation you raise an exception:
     # if not helper.Data.get("test"):
     #     raise ValueError("this error will show in the cloudformation events log and console.")
