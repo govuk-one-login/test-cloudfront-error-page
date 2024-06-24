@@ -33,7 +33,7 @@ def updateBucket(event, context):
   # To add response data update the helper.Data dict
   # If poll is enabled data is placed into poll event as event['CrHelperData']
 
-  
+
 
   s3.upload_file('index.html', bucket, 'index.html', ExtraArgs={'ContentType': 'text/html'})
     # # To return an error to cloudformation you raise an exception:
