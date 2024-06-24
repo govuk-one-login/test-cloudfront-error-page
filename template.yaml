@@ -45,10 +45,10 @@ Resources:
       VersioningConfiguration:
         Status: "Enabled"
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
-        BlockPublicPolicy: false
-        IgnorePublicAcls: false
-        RestrictPublicBuckets: false
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
       WebsiteConfiguration:
         IndexDocument: "index.html"
       BucketEncryption:
@@ -66,15 +66,23 @@ Resources:
       PolicyDocument:
         Version: 2012-10-17
         Statement:
-          - Sid: PublicReadForGetBucketObjects
-            Effect: Allow
-            Principal: '*'
-            Action: 's3:GetObject'
-            Resource: !Join 
-              - ''
-              - - 'arn:aws:s3:::'
-                - !Ref CFErrorPageBucket
-                - /*  
+        - Action: s3:GetObject
+          Effect: Allow
+          Resource: !Sub ${CFErrorPageBucket.Arn}/*
+          Principal:
+            Service: cloudfront.amazonaws.com
+          Condition:
+            StringEquals:
+              "aws:PrincipalOrgID": ["o-dpp53lco28"]
+        - Effect: Deny
+          Principal: '*'
+          Action: 's3:*'
+          Resource:
+            - !Sub ${CFErrorPageBucket.Arn}/*
+            - !GetAtt CFErrorPageBucket.Arn
+          Condition:
+            Bool:
+              aws:SecureTransport: false
 
   StaticSiteInvoke:
     Type: AWS::CloudFormation::CustomResource
