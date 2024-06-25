@@ -59,6 +59,31 @@ Resources:
         - Key: Source
           Value: "govuk-one-login/static-error-pages/cloudformation/template"
 
+  CFErrorPageBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref CFErrorPageBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+        - Action: s3:GetObject
+          Effect: Allow
+          Resource: !Sub ${CFErrorPageBucket.Arn}/*
+          Principal:
+            Service: cloudfront.amazonaws.com
+          Condition:
+            StringEquals:
+              "aws:PrincipalOrgID": ["o-dpp53lco28"]
+        - Effect: Deny
+          Principal: '*'
+          Action: 's3:*'
+          Resource:
+            - !Sub ${CFErrorPageBucket.Arn}/*
+            - !GetAtt CFErrorPageBucket.Arn
+          Condition:
+            Bool:
+              aws:SecureTransport: false
+
   StaticSiteInvoke:
     Type: AWS::CloudFormation::CustomResource
     Properties:
