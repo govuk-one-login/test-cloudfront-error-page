@@ -11,8 +11,8 @@ logger = logging.getLogger(__name__)
 helper = CfnResource(json_logging=False, log_level='DEBUG', boto_level='CRITICAL', sleep_on_delete=120, ssl_verify=None)
 
 try:
-  s3 = boto3.client('s3')
-  logger.info("Created S3 client")
+  s3 = boto3.resource('s3')
+  logger.info("Created boto3 S3 resource")
 
   with open("index.html") as f:
     logger.info("Able to open index.html")
@@ -25,21 +25,15 @@ except Exception as e:
 def updateBucket(event, context):
   logger.info("Got Create or Update")
   properties = event["ResourceProperties"]
-  bucket = properties["BucketName"]
+  bucket = s3.Bucket(properties["BucketName"])
 
-  # Optionally return an ID that will be used for the resource PhysicalResourceId, 
-  # if None is returned an ID will be generated.
-  #
-  # To add response data update the helper.Data dict
-  # If poll is enabled data is placed into poll event as event['CrHelperData']
+  try:
+    with open("index.html") as f:
+      bucket.put_object(Key='index.html', Body=f, ContentType='text/html')
+  except Exception:
+    logger.critical('Could not upload to S3')
+    raise
 
-
-
-  s3.upload_file('index.html', bucket, 'index.html', ExtraArgs={'ContentType': 'text/html'})
-    # # To return an error to cloudformation you raise an exception:
-    # if not helper.Data.get("test"):
-    #     raise ValueError("this error will show in the cloudformation events log and console.")
-  return None
 
 @helper.delete
 def no_op(_, __):
