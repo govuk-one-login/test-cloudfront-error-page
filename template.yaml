@@ -64,7 +64,7 @@ Resources:
     Properties:
       BucketName: !Ref CFErrorPageBucket
       ServiceToken: !GetAtt StaticSiteUploadFunction.Arn
-      FunctionName: !Ref StaticSiteUploadFunction
+      FunctionName: !Ref StaticSiteUploadFunction.Version
 
   StaticSiteUploadFunction:
     Type: AWS::Serverless::Function
