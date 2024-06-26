@@ -49,8 +49,6 @@ Resources:
         BlockPublicPolicy: true
         IgnorePublicAcls: true
         RestrictPublicBuckets: true
-      WebsiteConfiguration:
-        IndexDocument: "index.html"
       BucketEncryption:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
@@ -71,18 +69,6 @@ Resources:
           Resource: !Sub ${CFErrorPageBucket.Arn}/*
           Principal:
             Service: cloudfront.amazonaws.com
-          Condition:
-            StringEquals:
-              "aws:PrincipalOrgID": ["o-dpp53lco28"]
-        - Effect: Deny
-          Principal: '*'
-          Action: 's3:*'
-          Resource:
-            - !Sub ${CFErrorPageBucket.Arn}/*
-            - !GetAtt CFErrorPageBucket.Arn
-          Condition:
-            Bool:
-              aws:SecureTransport: false
 
   StaticSiteInvoke:
     Type: AWS::CloudFormation::CustomResource
@@ -110,11 +96,6 @@ Resources:
         - S3WritePolicy:
             BucketName: !Ref CFErrorPageBucket
 Outputs:
-  WebsiteURL:
-    Value: !GetAtt 
-      - CFErrorPageBucket
-      - WebsiteURL
-    Description: URL for website hosted on S3
   S3BucketSecureURL:
     Value: !Join 
       - ''

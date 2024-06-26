@@ -28,7 +28,8 @@ def updateBucket(event, context):
   bucket = s3.Bucket(properties["BucketName"])
 
   try:
-    bucket.put_object(Key='index.html', Body='index.html', ContentType='text/html')
+    with open("index.html") as f:
+      bucket.put_object(Key='cloudfront-error/index.html', Body=f, ContentType='text/html')
   except Exception:
     logger.critical('Could not upload to S3')
     raise
