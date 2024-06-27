@@ -70,6 +70,9 @@ Resources:
           Resource: !Sub ${CFErrorPageBucket.Arn}/*
           Principal:
             Service: cloudfront.amazonaws.com
+          Condition: 
+            StringEquals: 
+              "aws:SourceOrgID": "o-dpp53lco28"
 
   StaticSiteInvoke:
     Type: AWS::CloudFormation::CustomResource
